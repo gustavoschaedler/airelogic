@@ -66,6 +66,14 @@ Produce a program which, when given the name  of an artist, will produce the ave
     </tbody>
 </table>
 
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 ## 1. Installation
 
 ### 1.1 To repo clone
@@ -183,4 +191,5 @@ Found 1009 songs.
 
 AVG Words: 151.83
 ```
+
 
