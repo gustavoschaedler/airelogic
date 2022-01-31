@@ -115,7 +115,7 @@ Result:
 
 Getting total songs...
 Found 1009 songs.
-100% (1009 of 1009) scraped songs |#######################################################| [Elapsed Time: 0:09:20]  (ETA:  00:00:00) 
+100% (1009 of 1009) scraped songs |########################| [Elapsed Time: 0:09:20]  (ETA:  00:00:00) 
 
 AVG Words: 151.83
 ```
