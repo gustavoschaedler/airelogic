@@ -7,9 +7,6 @@ from progressbar import ProgressBar
 
 
 class Genius:
-    """[summary]
-    """
-
     def __init__(self):
         self.search_url = 'https://genius.com/api/search/multi'
         self.artist_songs_url = 'https://genius.com/api/artists'

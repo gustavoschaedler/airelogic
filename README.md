@@ -66,12 +66,15 @@ Produce a program which, when given the name  of an artist, will produce the ave
     </tbody>
 </table>
 
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+## Data flow
+
+```text
+1) artist_name
+2) get_artist(artist_name)
+3) get_total_songs(artist_id)
+4) get_songs(artist_id, artist_name)
+5) scrape_lyrics(url)
+6) calc_avg_words_from_songs_list(songs_list)
 ```
 
 ## 1. Installation
@@ -191,5 +194,7 @@ Found 1009 songs.
 
 AVG Words: 151.83
 ```
+
+
 
 

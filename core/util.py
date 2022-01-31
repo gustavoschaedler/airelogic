@@ -6,9 +6,6 @@ from requests.exceptions import HTTPError, Timeout
 
 
 class Util:
-    """[summary]
-    """
-
     def banner(self, text: str) -> None:
         print(pyfiglet.figlet_format(text))
 

@@ -34,7 +34,7 @@ def avg(artist_name: str) -> str:
     print(f'\n\n{data}')
 
 
-def _main(_=None):
+def _main():
     fire.Fire()
 
 
