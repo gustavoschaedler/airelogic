@@ -5,11 +5,11 @@ Produce a program which, when given the name  of an artist, will produce the ave
 <table border="1">
     <thead>
         <tr>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Songs</th>
-            <th>Words</th>
-            <th colspan="2">Avg</th>
+            <th><b>Artist</b></th>
+            <th><b>Album</b></th>
+            <th><b>Songs</b></th>
+            <th><b>Words</b></th>
+            <th colspan="2"><b>Avg</b></th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@ Produce a program which, when given the name  of an artist, will produce the ave
             <td>Song 01</td>
             <td>230</td>
             <td rowspan="5">250</td>
-            <td rowspan="10">218</td>
+            <td rowspan="10"><b>218</b></td>
         </tr>
         <tr>
             <td>Song 02</td>
