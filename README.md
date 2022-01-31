@@ -2,6 +2,70 @@
 
 Produce a program which, when given the name  of an artist, will produce the average (mean) number of words in their songs.
 
+<table border="1">
+    <thead>
+        <tr>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Songs</th>
+            <th>Words</th>
+            <th colspan="2">Avg</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="10">Eminem</td>
+            <td rowspan="5">Album 03</td>
+            <td>Song 01</td>
+            <td>230</td>
+            <td rowspan="5">250</td>
+            <td rowspan="10">218</td>
+        </tr>
+        <tr>
+            <td>Song 02</td>
+            <td>120</td>
+        </tr>
+        <tr>
+            <td>Song 03</td>
+            <td>321</td>
+        </tr>
+        <tr>
+            <td>Song 04</td>
+            <td>451</td>
+        </tr>
+        <tr>
+            <td>Song 05</td>
+            <td>128</td>
+        </tr>
+        <tr>
+            <td rowspan="3">Album 02</td>
+            <td>Song 01</td>
+            <td>100</td>
+            <td rowspan="3">186<br></td>
+        </tr>
+        <tr>
+            <td>Song 02</td>
+            <td>143</td>
+        </tr>
+        <tr>
+            <td>Song 03</td>
+            <td>315</td>
+        </tr>
+        <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td>Album N</td>
+            <td>Song N</td>
+            <td>xxx</td>
+            <td>yyy</td>
+        </tr>
+    </tbody>
+</table>
+
 ## 1. Installation
 
 ### 1.1 To repo clone
@@ -119,3 +183,4 @@ Found 1009 songs.
 
 AVG Words: 151.83
 ```
+
