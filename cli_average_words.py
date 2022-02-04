@@ -13,6 +13,7 @@ def avg(artist_name: str) -> str:
         str: Average number of words in an artist's discography.
     """
 
+    # Import inside the avg method to the Fire lib does not export the Util and Genius module functionalities outside the avg method
     from core.util import Util
     from core.genius import Genius
 
@@ -25,8 +26,13 @@ def avg(artist_name: str) -> str:
     artist = genius.get_artist(artist_name)
 
     if artist:
-        songs_list = genius.get_songs(artist['id'], artist['name'])
-        songs_avg = util.calc_avg_words_from_songs_list(songs_list['songs'])
+        songs_list = genius.get_songs(
+            artist['id'], artist['name']
+        )
+
+        songs_avg = util.calc_avg_words_from_songs_list(
+            'lyric_words', songs_list['songs']
+        )
         data = f'AVG Words: {songs_avg}'
     else:
         data = f'Artist: "{artist_name}" not found on Genius.com database.'
