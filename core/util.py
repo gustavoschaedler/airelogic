@@ -1,52 +1,72 @@
-import requests
+from urllib import response
 import pyfiglet
-from time import sleep
-from pandas import DataFrame
-from requests.exceptions import HTTPError, Timeout
+import progressbar
+from requests import Session
+from urllib3.util import Retry
+from progressbar import ProgressBar
+from requests.adapters import HTTPAdapter
+
+
+class APIGeniusRequestError(ConnectionError):
+    pass
 
 
 class Util:
     def banner(self, text: str) -> None:
         print(pyfiglet.figlet_format(text))
 
-    def dict_to_dataframe(self, data: dict) -> DataFrame:
-        import pandas as pd
-        return pd.DataFrame.from_dict(data)
+    def calc_avg_words_from_songs_list(self, field_name_lyric_words: str, songs_list: dict) -> float:
+        avg, count_songs, total_words = 0, 0, 0
 
-    def calc_avg_words_from_songs_list(self, songs_list: dict) -> float:
-        df = self.dict_to_dataframe(songs_list)
-        return round(df['lyric_words'].mean(), 2)
+        for song in songs_list:
+            count_songs += 1
+            total_words += song[field_name_lyric_words]
 
-    def _request(self, url: str):
-        tries = 1
-        response = None
-        max_retries = 5
-        sleep_retrie = 3
+        if count_songs >= 0:
+            avg = round(total_words/count_songs, 2)
 
-        while (response is None) and (tries <= max_retries):
-            try:
-                response = requests.get(url, timeout=5)
-                response.raise_for_status()
-            except Timeout as e:
-                error = f'Request timed out:\n{e}'
-                if tries > max_retries:
-                    raise Timeout(error)
-            except HTTPError as e:
-                if (response.status_code < 500) or (tries > max_retries):
-                    raise HTTPError(response.status_code, e)
-            except Exception as e:
-                print(
-                    f'No internet connection: sleep {sleep_retrie} seconds... retrie ({tries} of {max_retries})')
-                sleep(sleep_retrie)
+        return avg
 
-            tries += 1
-            sleep(0.2)
+    def custom_progress_bar(self, total, text) -> ProgressBar:
+        widgets = [
+            progressbar.Percentage(), ' (', progressbar.Counter(
+            ), ' of ', str(total), ') ', text,
+            progressbar.Bar(),
+            ' [', progressbar.Timer(), '] ',
+            ' (', progressbar.ETA(), ') ',
+        ]
 
-        if response:
-            if response.status_code in [200, 204]:
-                return response
-            else:
-                raise AssertionError(
-                    f'Response status code was neither 200, nor 204. It was {response.status_code} - Url: {url}')
+        bar = ProgressBar(
+            max_value=total,
+            widgets=widgets,
+            redirect_stdout=True
+        )
+
+        return bar
+
+    def retry_session(self, total: int = 5, backoff_factor: float = 0.5, method_whitelist: set = ['GET']) -> Session:
+        strategy = Retry(
+            total=total,
+            backoff_factor=backoff_factor,
+            status_forcelist=[429, 500, 502, 503, 504],
+            method_whitelist=frozenset(method_whitelist)
+        )
+
+        adapter = HTTPAdapter(max_retries=strategy)
+
+        session = Session()
+        session.mount("https://", adapter)
+        session.mount("http://", adapter)
+
+        return session
+
+    def request(self, url: str, timeout: int = 2):
+        request_session = self.retry_session()
+
+        try:
+            response = request_session.get(url, timeout=timeout)
+        except Exception as err:
+            print(f'No internet connection error: {err.__class__.__name__}')
+            raise APIGeniusRequestError
         else:
-            raise AssertionError('No internet connection, try again later.')
+            return response
